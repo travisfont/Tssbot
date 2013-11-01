@@ -6,7 +6,7 @@ set_time_limit(0);
 
 define('HOST',     'localhost');
 define('USER',     'root');
-define('PASSWORD', NULL);
+define('PASSWORD',  NULL);
 define('DATABASE', 'tssbot');
 
 define('SERVER',   'pratchett.freenode.net');

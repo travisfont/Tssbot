@@ -11,7 +11,7 @@ define('DATABASE', 'tssbot');
 
 define('SERVER',   'pratchett.freenode.net');
 define('PORT',     6667);
-define('NICK',     'Tssbot'.rand());
+define('NICK',    'Tssbot'.rand());
 
 // the great beloved channel list
 $channels = array

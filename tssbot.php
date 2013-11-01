@@ -81,7 +81,7 @@ if ($ircSocket = fsockopen(SERVER, PORT, $errno, $errstr))
 }
 else
 {
-    // WTF ?!?!
+    // WTF ERROR? NO WAY?!?!
     echo $errno . ": " . $errstr;
 }
 

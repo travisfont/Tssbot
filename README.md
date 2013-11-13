@@ -10,3 +10,6 @@ ENJOY! And code away :D
 Tssbot is GPLv2.
 
 https://github.com/tfont/Tssbot/blob/master/LICENSE
+
+### Contributors
+- Travis van der Font (travis.font@gmail.com)

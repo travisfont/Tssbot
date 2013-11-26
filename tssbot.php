@@ -74,7 +74,7 @@ if ($ircSocket = fsockopen(SERVER, PORT, $errno, $errstr))
                 }
 
                 // logging the responses
-                myquery("INSERT INTO `logs` (`id`,  `channel`, `nick`, `msg`) VALUES (NULL ,  '".$channel."', '".$nick."', '".$msg."');");
+                myquery("INSERT INTO `logs` (`id`,  `channel`, `nick`, `msg`) VALUES (NULL ,  '".$channel."', '".$nick."', '".trim($msg)."');");
             }
         }
     }

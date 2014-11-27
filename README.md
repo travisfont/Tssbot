@@ -1,7 +1,7 @@
 Tssbot v 0.1
 ======
 
-#### *Yet Another IRC Bot in PHP!*
+#### *Yet Another IRC Bot in PHP*
 #### This small project was created for experimental reasons, and nothing more.
 
 

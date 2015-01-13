@@ -1,25 +1,13 @@
 <?php
 
+// keeps the script process alive
 set_time_limit(0);
 
-/* configs */
+// server configurations + channels
+require_once 'configs.php';
 
-define('HOST',     'localhost');
-define('USER',     'root');
-define('PASSWORD',  NULL);
-define('DATABASE', 'tssbot');
-
-define('SERVER',   'pratchett.freenode.net');
-define('PORT',     6667);
-define('NICK',     'Tssbot'.rand());
-
-// the great beloved channel list
-$channels = array
-(
-    'ubuntu',
-    'freenode',
-    'bash'
-);
+// database class
+require_once 'class.database.php';
 
 // open irc socket connection ^ OF COURSE!
 if ($ircSocket = fsockopen(SERVER, PORT, $errno, $errstr))
@@ -33,6 +21,9 @@ if ($ircSocket = fsockopen(SERVER, PORT, $errno, $errstr))
     {
         fwrite($ircSocket, "JOIN #". $channel."\n");
     }
+
+    // intialize database connection
+    $db = new DB;
 
     // PRIVMSG #channel :HALLO!
     // PRIVMSG User :Moien kolleg!
@@ -74,7 +65,7 @@ if ($ircSocket = fsockopen(SERVER, PORT, $errno, $errstr))
                 }
 
                 // logging the responses
-                myquery("INSERT INTO `logs` (`id`,  `channel`, `nick`, `msg`) VALUES (NULL ,  '".$channel."', '".$nick."', '".trim($msg)."');");
+                $db->insertLog($channel, $nick, $msg);
             }
         }
     }
@@ -83,46 +74,6 @@ else
 {
     // WTF ERROR? NO WAY?!?!
     echo $errno . ": " . $errstr;
-}
-
-
-/* --------- REDO THIS WITH PDO WHEN NOT LAZY --- */
-
-function myquery($query)
-{
-    if (!$link = mysql_connect(HOST, USER, PASSWORD))
-    {
-        die('error - connection credentials incorrect: '.mysql_error());
-    }
-    if(!$db = mysql_select_db(DATABASE))
-    {
-        die("error - db unavailable.");
-    }
-    $result = mysql_query($query);
-    if (mysql_error())
-    {
-        echo mysql_error() ."\n";
-        return FALSE;
-    }
-    else
-    {
-        if (strpos($query, 'SELECT') !== FALSE)
-        {
-            $output = array();
-            while ($row = mysql_fetch_assoc($result))
-            {
-                $output[] = $row;
-            }
-
-            mysql_close($link);
-            return $output;
-        }
-        else
-        {
-            mysql_close($link);
-            return $result;
-        }
-    }
 }
 
 #END;
